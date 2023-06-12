@@ -10,7 +10,7 @@ const Header = ({ title }) => {
 }
 
 Header.defaultProps = {
-  title: "Default Title"
+  title: "MK Characters Lists"
 }
 
 export default Header;

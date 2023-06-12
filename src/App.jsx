@@ -1,11 +1,10 @@
-
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
 import SearchItem from './SearchItem';
 import AddItem from './AddItem';
 import './index.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function App() {
@@ -18,15 +17,20 @@ function App() {
     localStorage.setItem('shoppinglist', JSON.stringify(newItems));
   }
 
-  // The fault lies here, within this function addItem
+  useEffect(() => {
+    localStorage.setItem('shoppinglist', JSON.stringify(items));
+  }, [items])
+
+  // The fault was fixed, by adding an empty array
   const addItem = (item) => {
     const id = items?.length ? items[items?.length - 1]?.id + 1 : 1;
     const myNewItem = { id, checked: false, item };
     const listItems = [...items, myNewItem];
     setAndSaveItems(listItems);
   }
-  // The fault lies here, within this function addItem
   // The fault is Uncaught TypeError: items is not iterable
+  // The fault was fixed, by adding an empty array
+
  
  
   const handleCheck = (id) => {
@@ -48,7 +52,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header title="MK Characters Lists" />
+      <Header />
       <AddItem
         newItem={newItem}
         setNewItem={setNewItem}
